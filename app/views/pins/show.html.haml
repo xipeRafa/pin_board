@@ -1,6 +1,23 @@
-%h1= @pin.title
-%p.description= @pin.description
+#pin_show.row
+	.col-md-8.col-md-offset-2
+		.panel.panel-default
+			.panel-heading.pin_image
+				= image_tag @pin.image.url
+			.panel-body
+				%h1= @pin.title
+				%p.description= @pin.description
+			.panel-footer
+				.row
+					.col-md-6
+						%p.user
+							Submitted by
+							= @pin.user.email
+					.col-md-6
+						.btn-group.pull-right
+							- if user_signed_in?
+								= link_to like_pin_path(@pin), method: :put, class: "btn " do
+									%span.glyphicon.glyphicon-heart
+									= @pin.get_upvotes.size
 
-= link_to "Home", root_path
-= link_to "Edit", edit_pin_path
-= link_to "Delete", pin_path, method: :delete, data: { confirm: "Are you sure?" }
+								= link_to "Edit", edit_pin_path, class: "btn "
+								= link_to "Delete", pin_path, method: :delete, data: { confirm: "Are you sure?" }, class: "btn "
