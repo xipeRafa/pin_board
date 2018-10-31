@@ -1,0 +1,104 @@
+rails new pin_board
+
+rails g model Pin title:string description:text
+rake db:migrate
+
+rails g controller Pins
+pins_controller.rb
+   def index
+   end
+routes.rb
+   resources :pins
+   root "pins#index"
+
+rails generate simple_form:install
+rails g simple_form:install —bootstrap
+
+rails g devise:install
+rails g devise:views
+rails g devise user
+rake db:migrate
+
+rails g migration add_user_id_to_pins user_id:integer:index
+rake db:migrate
+rails c
+@pin = Pin.first
+@user = User.first
+@pin.user = @user
+@pin
+@pin.save
+@pin = Pin.last
+@pin = Pin.find(3)
+@user = User.first
+@pin.user = @user
+@pin.save
+
+rails g paperclip pin image
+rake db:migrate
+
+rails g acts_as_votable:migration
+rake db:migrate
+pin.rb
+   acts_as_votable
+routes.rb
+  devise_for :users
+  resources :pins do
+    member do
+        put "like", to: "pins#upvote"
+    end
+  end
+
+  root "pins#index"
+end
+
+Gemfile
+
+gem 'haml', '~> 5.0', '>= 5.0.1'
+gem 'bootstrap-sass', '~> 3.3', '>= 3.3.7'
+gem 'simple_form', '~> 3.5'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
